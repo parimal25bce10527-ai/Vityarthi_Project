@@ -111,4 +111,3 @@ This project really helped me improve my confidence with Python.
 ## **👨‍💻 Developed By**
 
 **Parimal Swami**
-Lyrics Search Assistant 
