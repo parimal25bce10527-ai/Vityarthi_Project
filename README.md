@@ -1,10 +1,10 @@
 # Vityarthi_Project
 Lyrics_Search_Assistant
-Here is the **humanized README** updated with the line that you used the **`lyricgenius` module** for fetching lyrics.
+
 
 ---
 
-# **Lyrics Search Assistant **
+# Lyrics Search Assistant 
 
 The **Lyrics Search Assistant** is a simple and fun Python project.
 **Type a song name or artist, and get the lyrics instantly.**
@@ -30,11 +30,6 @@ To make this possible, I used the **`lyricgenius` Python module**, which allows 
 * `requests` (dependency for API communication)
 
 ---
-
-
-
----
-
 ## **🚀 How to Run the Project**
 
 1. Install Python 3.
@@ -64,10 +59,6 @@ The flow is simple and user-friendly.
 
 ---
 
-
-
----
-
 ## **📚 What I Learned From This Project**
 
 * How to use third-party Python modules
@@ -76,8 +67,6 @@ The flow is simple and user-friendly.
 * Input validation & error handling
 
 This project really helped me improve my confidence with Python.
-
-
 
 ---
 
