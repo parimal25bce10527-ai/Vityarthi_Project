@@ -31,17 +31,7 @@ To make this possible, I used the **`lyricgenius` Python module**, which allows 
 
 ---
 
-## **📁 Project Structure**
 
-```
-Lyrics Search Assistant/
-│
-├── main.py
-├── lyrics_fetcher.py
-├── data/
-├── README.md
-└── requirements.txt
-```
 
 ---
 
