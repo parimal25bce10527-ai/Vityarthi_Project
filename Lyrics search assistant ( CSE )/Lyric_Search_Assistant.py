@@ -5,7 +5,7 @@ import sys
 TOKEN = "1m5_29XHfEjgPfsyAHzw7-PGsosrAKJBvNuhqVDEwZSfH5I6vRbitqNDW7Z5TZHZ"
 
 def main():
-    print("--- Lyrics Searcher (Terminal Version) ---")
+    print("--- Lyrics Searcher  ---")
     print("Initializing Genius API...")
 
     try:
@@ -85,4 +85,5 @@ def save_lyrics_to_file(song):
 
 if __name__ == "__main__":
     main()
+
 
