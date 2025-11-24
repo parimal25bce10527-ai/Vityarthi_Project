@@ -1,83 +1,90 @@
-import tkinter as tk
-from tkinter import scrolledtext, messagebox, filedialog
 import lyricsgenius
+import sys
 
 # Paste token here
 TOKEN = "1m5_29XHfEjgPfsyAHzw7-PGsosrAKJBvNuhqVDEwZSfH5I6vRbitqNDW7Z5TZHZ"
 
-class LyricsApp:
-    def __init__(self, window):
-        self.window = window
-        self.window.title("My Lyrics Finder")
-        self.window.geometry("500x600")
-        self.window.configure(bg="lightgray")
+def main():
+    print("--- Lyrics Searcher (Terminal Version) ---")
+    print("Initializing Genius API...")
 
-        # Title
-        self.title_lbl = tk.Label(window, text="Lyrics Searcher", font=("Arial", 16, "bold"), bg="lightgray")
-        self.title_lbl.pack(pady=15)
+    try:
+        # Initialize Genius
+        genius = lyricsgenius.Genius(TOKEN)
+        # Optional: Set verbose to False if you don't want to see the library's search logs
+        # genius.verbose = False 
+        print("Ready! Type 'exit' or 'quit' at any time to stop.\n")
+    except Exception as e:
+        print(f"Error connecting to Genius API: {e}")
+        return
 
-        # Input area
-        self.frame = tk.Frame(window, bg="lightgray")
-        self.frame.pack(pady=5)
+    while True:
+        print("-" * 40)
+        
+        # 1. Get Input
+        s_name = input("Enter Song Name: ").strip()
+        if s_name.lower() in ['exit', 'quit']:
+            break
+            
+        a_name = input("Enter Artist Name: ").strip()
+        if a_name.lower() in ['exit', 'quit']:
+            break
 
-        tk.Label(self.frame, text="Song Name:", bg="lightgray").grid(row=0, column=0, padx=5)
-        self.entry_song = tk.Entry(self.frame, width=25)
-        self.entry_song.grid(row=0, column=1, padx=5)
+        # Validation
+        if not s_name or not a_name:
+            print(">> Warning: Song and Artist fields cannot be empty.")
+            continue
 
-        tk.Label(self.frame, text="Artist:", bg="lightgray").grid(row=1, column=0, padx=5)
-        self.entry_artist = tk.Entry(self.frame, width=25)
-        self.entry_artist.grid(row=1, column=1, padx=5)
-
-        # Search Button
-        self.btn_search = tk.Button(window, text="Find Lyrics", command=self.get_lyrics, bg="white")
-        self.btn_search.pack(pady=15)
-
-        # Text box for results
-        self.txt_box = scrolledtext.ScrolledText(window, width=55, height=20)
-        self.txt_box.pack(pady=5)
-
-        # Save Button
-        self.btn_save = tk.Button(window, text="Save to File", command=self.save_lyrics, bg="white")
-        self.btn_save.pack(pady=5)
-
-    def get_lyrics(self):
-        # Get data from entries
-        s_name = self.entry_song.get()
-        a_name = self.entry_artist.get()
-
-        if s_name == "" or a_name == "":
-            messagebox.showwarning("Warning", "Please fill in all fields")
-            return
-
+        # 2. Search for lyrics
         try:
-            genius = lyricsgenius.Genius(TOKEN)
-            # search for the song
+            print(f"\nSearching for '{s_name}' by '{a_name}'...")
             song = genius.search_song(s_name, a_name)
 
-            self.txt_box.delete(1.0, tk.END) # clear old text
-
             if song:
-                result = f"Title: {song.title}\nArtist: {song.artist}\n\n"
-                result += song.lyrics
-                self.txt_box.insert(tk.INSERT, result)
+                # 3. Display Results
+                print("\n" + "="*20 + " LYRICS FOUND " + "="*20)
+                print(f"Title: {song.title}")
+                print(f"Artist: {song.artist}")
+                print("-" * 40)
+                print(song.lyrics)
+                print("="*54 + "\n")
+
+                # 4. Ask to Save
+                save_choice = input("Do you want to save these lyrics to a file? (y/n): ").lower()
+                if save_choice == 'y':
+                    save_lyrics_to_file(song)
             else:
-                self.txt_box.insert(tk.INSERT, "Song not found!")
+                print("\n>> Song not found! Please check the spelling.")
 
-        except:
-            messagebox.showerror("Error", "Something went wrong with the connection.")
+        except Exception as e:
+            print(f"\n>> An error occurred: {e}")
 
-    def save_lyrics(self):
-        text_data = self.txt_box.get(1.0, tk.END)
+    print("Goodbye!")
+
+def save_lyrics_to_file(song):
+    # Create a default filename based on the song title
+    # We remove spaces/special chars for a cleaner filename
+    clean_title = "".join(x for x in song.title if x.isalnum() or x in " _-").strip()
+    default_filename = f"{clean_title}_lyrics.txt"
+    
+    filename = input(f"Enter filename (press Enter for '{default_filename}'): ").strip()
+    
+    if not filename:
+        filename = default_filename
         
-        # open save dialog
-        f = filedialog.asksaveasfilename(defaultextension=".txt", filetypes=[("Text Files", "*.txt")])
-        
-        if f:
-            with open(f, "w", encoding="utf-8") as file:
-                file.write(text_data)
-            messagebox.showinfo("Saved", "File saved successfully")
+    # Ensure extension exists
+    if not filename.endswith(".txt"):
+        filename += ".txt"
 
-# Run the app
-root = tk.Tk()
-app = LyricsApp(root)
-root.mainloop()
+    try:
+        # Prepare text data
+        text_data = f"Title: {song.title}\nArtist: {song.artist}\n\n{song.lyrics}"
+        
+        with open(filename, "w", encoding="utf-8") as file:
+            file.write(text_data)
+        print(f">> Success: Saved to '{filename}'")
+    except Exception as e:
+        print(f">> Error saving file: {e}")
+
+if __name__ == "__main__":
+    main()
