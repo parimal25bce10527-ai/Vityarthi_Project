@@ -11,8 +11,7 @@ def main():
     try:
         # Initialize Genius
         genius = lyricsgenius.Genius(TOKEN)
-        # Optional: Set verbose to False if you don't want to see the library's search logs
-        # genius.verbose = False 
+        
         print("Ready! Type 'exit' or 'quit' at any time to stop.\n")
     except Exception as e:
         print(f"Error connecting to Genius API: {e}")
@@ -62,8 +61,6 @@ def main():
     print("Goodbye!")
 
 def save_lyrics_to_file(song):
-    # Create a default filename based on the song title
-    # We remove spaces/special chars for a cleaner filename
     clean_title = "".join(x for x in song.title if x.isalnum() or x in " _-").strip()
     default_filename = f"{clean_title}_lyrics.txt"
     
@@ -88,3 +85,4 @@ def save_lyrics_to_file(song):
 
 if __name__ == "__main__":
     main()
+
