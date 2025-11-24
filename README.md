@@ -53,7 +53,7 @@ python main.py
 
 ---
 
-## **🔍 How It Works (Simple Explanation)**
+## **🔍 How It Works **
 
 1. The program asks what song or artist you want.
 2. It uses **`lyricgenius`** to connect to the Genius API and fetch the lyrics.
@@ -64,16 +64,7 @@ The flow is simple and user-friendly.
 
 ---
 
-## **📝 Example Interaction**
 
-```
-Enter song name: Believer
-Searching with lyricgenius...
-Lyrics found!
-
-"First things first
-I'ma say all the words inside my head..."
-```
 
 ---
 
@@ -86,18 +77,10 @@ I'ma say all the words inside my head..."
 
 This project really helped me improve my confidence with Python.
 
----
 
-## **🚀 Future Ideas**
-
-* GUI using Tkinter
-* Voice-based search
-* Save favourite lyrics
-* Offline lyrics database
-* Better search recommendations
 
 ---
 
-## **👨‍💻 Developed By**
+## **Developed By**
 
 **Parimal Swami**
