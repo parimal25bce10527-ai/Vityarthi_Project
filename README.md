@@ -4,7 +4,7 @@ Here is the **humanized README** updated with the line that you used the **`lyri
 
 ---
 
-# **Lyrics Search Assistant 🎵**
+# **Lyrics Search Assistant **
 
 The **Lyrics Search Assistant** is a simple and fun Python project.
 **Type a song name or artist, and get the lyrics instantly.**
